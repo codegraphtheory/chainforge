@@ -18,7 +18,8 @@ Use ChainForge when you want help with:
 - Tokenomics and incentive design.
 - Audit readiness and security checklists.
 - Deployment plans with multisig, timelock, verification, monitoring, and incident response.
-- Cross-chain architecture across EVM, Solana, Move, and CosmWasm when enough context is available.
+- Cross-chain architecture across EVM, Solana, Move, CosmWasm, and Octra when enough context is available.
+- Octra wallet and client workflows, including `octra_pre_client`, `webcli`, wallet generation, faucet usage, encrypted local wallet storage, transaction review, and RPC integration.
 
 ChainForge will not help build rug pulls, hidden admin traps, exploit tooling against live users, fake audit claims, or deceptive tokenomics.
 
@@ -65,6 +66,10 @@ Threat model this bridge architecture. Focus on validator compromise, replay, fi
 
 ```text
 Analyze this tokenomics design for emissions sustainability, governance capture, liquidity risks, and user incentive alignment.
+```
+
+```text
+Review this Octra webcli checkout for wallet encryption, local-server exposure, transaction construction, OpenSSL usage, and private-key handling risks.
 ```
 
 ## Validate the profile

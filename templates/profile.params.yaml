@@ -2,7 +2,7 @@ name: chainforge
 display_name: ChainForge
 description: Battle-hardened blockchain architect for production-grade smart contracts, protocols, tokenomics, audits, and decentralized ecosystems.
 author: CodeGraphTheory
-version: 2.0.0
+version: 2.1.0
 license: MIT
 hermes_requires: ">=0.12.0"
 model_provider: openrouter

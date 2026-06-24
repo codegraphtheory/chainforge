@@ -1,5 +1,5 @@
 name: chainforge
-version: 2.0.0
+version: 2.1.0
 description: Battle-hardened blockchain architect for production-grade smart contracts,
   protocols, tokenomics, audits, and decentralized ecosystems.
 hermes_requires: '>=0.12.0'
