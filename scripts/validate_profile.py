@@ -76,6 +76,19 @@ def check_manifest(root: Path, errors: list[str]) -> None:
     if name and not re.fullmatch(r"[a-z0-9][a-z0-9-]{0,62}", name):
         fail(errors, "distribution.yaml name must be lowercase kebab case")
     env_requires = data.get("env_requires", [])
+    template_source = data.get("template_source")
+    if template_source is not None:
+        if not isinstance(template_source, dict):
+            fail(errors, "distribution.yaml template_source must be a mapping")
+        elif template_source.get("url") and not str(template_source["url"]).startswith("https://github.com/"):
+            fail(errors, "distribution.yaml template_source.url should be a GitHub HTTPS URL")
+    lineage_file = root / ".github" / "template-source.yml"
+    if template_source and not lineage_file.exists():
+        fail(errors, "template_source is declared but .github/template-source.yml is missing")
+    if lineage_file.exists():
+        lineage = load_yaml(lineage_file, errors)
+        if isinstance(lineage, dict) and not isinstance(lineage.get("template"), dict):
+            fail(errors, ".github/template-source.yml must contain a template mapping")
     if env_requires and not isinstance(env_requires, list):
         fail(errors, "distribution.yaml env_requires must be a list")
     owned = data.get("distribution_owned", [])

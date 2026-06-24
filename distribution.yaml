@@ -8,7 +8,7 @@ license: MIT
 template_source:
   name: codegraphtheory/hermes-profile-template
   url: https://github.com/codegraphtheory/hermes-profile-template
-  commit: e731d0e
+  commit: d0a6aa4
   relationship: rebuilt-from-template
 env_requires:
 - name: OPENROUTER_API_KEY

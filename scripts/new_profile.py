@@ -29,6 +29,11 @@ def main() -> int:
         "license": "MIT",
         "model_provider": "openrouter",
         "model_default": "anthropic/claude-sonnet-4",
+        "template_source": {
+            "name": "codegraphtheory/hermes-profile-template",
+            "url": "https://github.com/codegraphtheory/hermes-profile-template",
+            "relationship": "generated-from-template",
+        },
         "toolsets": ["file", "terminal", "skills", "web", "session_search", "clarify"],
         "env_requires": [],
     }

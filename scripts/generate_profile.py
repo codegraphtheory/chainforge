@@ -62,27 +62,36 @@ def render_distribution(params: dict[str, Any], slug: str, description: str) -> 
     env_requires = params.get("env_requires") or []
     if not isinstance(env_requires, list):
         raise ValueError("env_requires must be a list")
-    manifest = {
+    manifest: dict[str, Any] = {
         "name": slug,
         "version": str(params.get("version") or "0.1.0"),
         "description": description,
         "hermes_requires": str(params.get("hermes_requires") or ">=0.12.0"),
         "author": str(params.get("author") or "Hermes profile author"),
         "license": str(params.get("license") or "MIT"),
-        "env_requires": env_requires,
-        "distribution_owned": [
-            "SOUL.md",
-            "config.yaml",
-            "mcp.json",
-            "skills/",
-            "templates/",
-            "scripts/",
-            "distribution.yaml",
-            "README.md",
-            "AGENTS.md",
-            ".env.EXAMPLE",
-        ],
     }
+    template_source = params.get("template_source")
+    if template_source:
+        if not isinstance(template_source, dict):
+            raise ValueError("template_source must be a mapping")
+        manifest["template_source"] = template_source
+    manifest.update(
+        {
+            "env_requires": env_requires,
+            "distribution_owned": [
+                "SOUL.md",
+                "config.yaml",
+                "mcp.json",
+                "skills/",
+                "templates/",
+                "scripts/",
+                "distribution.yaml",
+                "README.md",
+                "AGENTS.md",
+                ".env.EXAMPLE",
+            ],
+        }
+    )
     return yaml.safe_dump(manifest, sort_keys=False, default_flow_style=False)
 
 
@@ -127,7 +136,6 @@ def render_config(params: dict[str, Any]) -> str:
             "memory": {"memory_enabled": True, "user_profile_enabled": True},
             "security": {"redact_secrets": True},
             "approvals": {"mode": "manual"},
-            "toolsets": toolsets,
         },
         sort_keys=False,
     )
@@ -229,10 +237,16 @@ When finishing, report files changed, commands run, validation output, and remai
 
 
 def render_readme(params: dict[str, Any], slug: str, display_name: str, description: str) -> str:
+    template_source = params.get("template_source")
+    lineage = ""
+    if isinstance(template_source, dict) and template_source.get("url"):
+        template_name = str(template_source.get("name") or "profile template")
+        template_url = str(template_source["url"])
+        lineage = f"\nTemplate lineage: built from [{template_name}]({template_url}).\n"
     return f"""# {display_name}
 
 {description}
-
+{lineage}
 This is a Hermes Agent profile distribution. It can be installed with `hermes profile install` and updated from git.
 
 ## Install
@@ -274,6 +288,22 @@ Do not commit `.env`, credentials, memories, sessions, logs, runtime databases, 
 """
 
 
+def render_template_source_file(params: dict[str, Any]) -> str | None:
+    template_source = params.get("template_source")
+    if not template_source:
+        return None
+    if not isinstance(template_source, dict):
+        raise ValueError("template_source must be a mapping")
+    data = {
+        "template": template_source,
+        "notes": [
+            "GitHub native generated-from-template linkage is only available when a repository is created through GitHub's template flow.",
+            "This file records template lineage explicitly for humans and automation.",
+        ],
+    }
+    return yaml.safe_dump(data, sort_keys=False, default_flow_style=False)
+
+
 def render_params_example(slug: str, display_name: str, description: str, author: str) -> str:
     data = {
         "name": slug,
@@ -284,6 +314,11 @@ def render_params_example(slug: str, display_name: str, description: str, author
         "license": "MIT",
         "model_provider": "openrouter",
         "model_default": "anthropic/claude-sonnet-4",
+        "template_source": {
+            "name": "codegraphtheory/hermes-profile-template",
+            "url": "https://github.com/codegraphtheory/hermes-profile-template",
+            "relationship": "generated-from-template",
+        },
         "toolsets": ["file", "terminal", "skills", "web", "session_search", "clarify"],
         "env_requires": [],
         "principles": [
@@ -343,6 +378,9 @@ def generate(params: dict[str, Any], output: Path, force: bool, template_root: P
     write(output / "mcp.json", "{\n  \"mcpServers\": {}\n}")
     write(output / "templates" / "profile.params.yaml", render_params_example(slug, display_name, description, author))
     copy_support_files(template_root, output)
+    template_source_file = render_template_source_file(params)
+    if template_source_file:
+        write(output / ".github" / "template-source.yml", template_source_file)
 
     result = subprocess.run(
         ["python3", str(output / "scripts" / "validate_profile.py"), str(output)],

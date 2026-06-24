@@ -1,7 +1,7 @@
 template:
   name: codegraphtheory/hermes-profile-template
   url: https://github.com/codegraphtheory/hermes-profile-template
-  commit: e731d0e
+  commit: d0a6aa4
   relationship: rebuilt-from-template
 notes:
   - ChainForge preserves its original git history.
