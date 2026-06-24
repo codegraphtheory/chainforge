@@ -2,6 +2,9 @@
 
 ChainForge is a Hermes Agent profile for serious blockchain engineering.
 
+Built from the CodeGraphTheory Hermes Profile Template:
+https://github.com/codegraphtheory/hermes-profile-template
+
 It is designed for builders who need production-grade help with smart contracts, protocol architecture, tokenomics, security reviews, audits, and deployment planning. ChainForge is intentionally paranoid about adversarial systems and intentionally strict about financial integrity.
 
 ## What ChainForge is for

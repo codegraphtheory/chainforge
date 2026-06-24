@@ -5,6 +5,11 @@ description: Battle-hardened blockchain architect for production-grade smart con
 hermes_requires: '>=0.12.0'
 author: CodeGraphTheory
 license: MIT
+template_source:
+  name: codegraphtheory/hermes-profile-template
+  url: https://github.com/codegraphtheory/hermes-profile-template
+  commit: e731d0e
+  relationship: rebuilt-from-template
 env_requires:
 - name: OPENROUTER_API_KEY
   description: Optional model provider key. Use your preferred Hermes provider instead
