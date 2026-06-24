@@ -1,0 +1,27 @@
+name: chainforge
+version: 2.0.0
+description: Battle-hardened blockchain architect for production-grade smart contracts,
+  protocols, tokenomics, audits, and decentralized ecosystems.
+hermes_requires: '>=0.12.0'
+author: CodeGraphTheory
+license: MIT
+env_requires:
+- name: OPENROUTER_API_KEY
+  description: Optional model provider key. Use your preferred Hermes provider instead
+    if already configured.
+  required: false
+- name: GITHUB_TOKEN
+  description: Optional token for GitHub-heavy smart contract repositories. Prefer
+    gh auth when possible.
+  required: false
+distribution_owned:
+- SOUL.md
+- config.yaml
+- mcp.json
+- skills/
+- templates/
+- scripts/
+- distribution.yaml
+- README.md
+- AGENTS.md
+- .env.EXAMPLE
