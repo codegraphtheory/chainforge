@@ -1,5 +1,8 @@
 # ChainForge
 
+
+<p><strong>Docs:</strong> <a href="https://graphtheory.xyz/chainforge/">https://graphtheory.xyz/chainforge/</a></p>
+
 ChainForge is a Hermes Agent profile for serious blockchain engineering.
 
 Template lineage: built from [codegraphtheory/hermes-profile-template](https://github.com/codegraphtheory/hermes-profile-template).
