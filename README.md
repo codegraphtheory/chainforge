@@ -1,9 +1,5 @@
 # ChainForge
 
-<p align="center">
-  <img src="demos/demo.gif" alt="30-second demo: profile validation, SOUL, skills, and install" width="100%">
-</p>
-
 <p><strong>Docs:</strong> <a href="https://graphtheory.xyz/chainforge/">https://graphtheory.xyz/chainforge/</a></p>
 
 ChainForge is a Hermes Agent profile for serious blockchain engineering.
