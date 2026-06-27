@@ -6,10 +6,17 @@ Set Height 720
 Set Theme "Catppuccin Mocha"
 Set TypingSpeed 50ms
 
-Type "# ChainForge · smart contracts and audits" Enter
+Hide
+Type "source demos/vhs/sanitize-recording-env.sh" Enter
+Sleep 400ms
+Show
+
+Type "# ChainForge - smart contracts and audits" Enter
 Sleep 600ms
 
 Hide
+Type "source demos/vhs/sanitize-recording-env.sh" Enter
+Sleep 300ms
 Type "python3 scripts/validate_profile.py ." Enter
 Sleep 5s
 Type "head -16 SOUL.md" Enter
@@ -20,5 +27,5 @@ Show
 
 Type "hermes profile install github.com/codegraphtheory/chainforge --name chainforge --yes" Enter
 Sleep 4s
-Type "# Security-first profile · validate before you ship" Enter
+Type "# Security-first profile - validate before you ship" Enter
 Sleep 3s
